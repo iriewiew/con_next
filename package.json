@@ -3,26 +3,37 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "clean": "rimraf build/ out/",
     "dev": "next dev",
     "build": "next build && next export",
-    "start": "next start",
-    "predeploy": "npm run clean && npm run build",
-    "build-page": "git subtree push --prefix out origin gh-pages"
+    "start": "next",
+    "export": "next export",
+    "deploy": "gh-pages -d out/"
   },
   "dependencies": {
-    "@contentful/rich-text-react-renderer": "^14.1.2",
-    "@contentful/rich-text-types": "^14.1.2",
+    "babel-plugin-styled-components": "^1.12.0",
     "babel-preset-env": "^1.7.0",
     "bootstrap": "^4.6.0",
     "clsx": "^1.1.1",
     "contentful": "^8.1.8",
+    "framer-motion": "^3.10.3",
+    "jquery": "^3.6.0",
     "moment": "^2.29.1",
     "next": "10.0.8",
+    "owl.carousel": "^2.3.4",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-icons": "^4.2.0",
     "react-markdown": "^5.0.3",
     "react-share": "^4.4.0",
-    "sass": "^1.32.8"
+    "react-slick": "^0.28.1",
+    "reactstrap": "^8.9.0",
+    "rimraf": "^3.0.2",
+    "sass": "^1.32.8",
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^5.2.1"
   },
-  "homepage": "/con_next"
+  "devDependencies": {
+    "gh-pages": "^3.1.0"
+  }
 }
