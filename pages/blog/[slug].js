@@ -59,13 +59,14 @@ const Blog = ({ post, morePosts }) => {
       <BlogBody content={post?.fields.body} />
       <div className="container-lg mt-4">
         <div className="social">
-          - Share -
+
+          <h3 className="mt-5 mb-5">Share</h3>
           <ShareButton
             url={`https://blog-with-nextjs-and-contentful.vercel.app/blog/${post?.fields.slug}`}
           />
         </div>
         <div className="recent-entries">
-          <h3>- Recent Entries -</h3>
+          <h3 className="mt-5 mb-5">Recent Entries</h3>
           <div className="row">
             {morePosts?.map(({ fields }) => (
               <div className="col-4" key={fields.slug}>

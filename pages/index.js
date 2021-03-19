@@ -1,52 +1,64 @@
-// import { useRouter } from 'next/router'
+import { motion } from "framer-motion";
 import Post from "../components/Post";
 import Layout from "../components/Layouts";
-// import PageHeader from "components/PageHeader";
+import Carousel from "../components/Carousel";
 
-import { getAllPosts } from "../lib/index";
+import { getAllPosts, getAllSlider } from "../lib/index";
+
+const content = {
+  animate: {
+    transition: { staggerChildren: 0.1 },
+  },
+};
+
+const title = {
+  initial: { y: -20, opacity: 0 },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.7,
+      ease: [0.6, -0.05, 0.01, 0.99],
+    },
+  },
+};
 
 export async function getStaticProps({ params }) {
   const posts = await getAllPosts();
-  // const post2 = posts.filter(post => post.fields.category 'wcommerce'));
-  const category = [...new Map(posts.map(item => [item.fields.category, item])).values()]
-  return { revalidate: 1, props: { posts, category } };
+  const slide = await getAllSlider();
+  return { revalidate: 1, props: { posts, slide } };
 }
 
-export default function Index({ posts, category }) {
-  console.log('category', posts, category)
+export default function Index({ posts, slide }) {
   return (
     <Layout title="Blog with Next.js and Contentful">
-      {/* <Layout
-        // type your page title and page description.
-        title="Blog with Next.js and Contentful"
-        description="This is a Blog Demo with Next.js and Contentful. You can see the code in github. And you can use the code to make your own blog. "
-      > */}
-        <div className="container-lg py-4">
-          {/* you can delete this component or you can use this for your page header. */}
-          <ul className="nav justify-content-center">
-            <li className="nav-item">
-              <a className="nav-link" href="#">All</a>
-            </li>
-          {
-            category?.map(({fields}, index) => (
-                <li className="nav-item" key={index}>
-                  <a className="nav-link active" href={`/categories/${fields.category}`}>
-                    {fields.category}
-                  </a>
-                </li>
-                // <li className="nav-item">
-                //   <a className="nav-link disabled" href="#">Disabled</a>
-                // </li>
-            ))
-          }
-          </ul>
-          {/* <PageHeader /> */}
-          {/* blog post */}
-          <div className="card-deck flex-wrap">
-            {posts?.map(({fields}, index) => {
+      <motion.section
+        exit={{ opacity: 0 }}
+        className="contact-wrapper pt-4"
+      >
+        <motion.div
+          variants={content}
+          animate="animate"
+          initial="initial"
+          className="container-lg py-4"
+        >
+          <Carousel
+            data={slide}
+          />
+          <motion.div
+            variants={title}
+            className="flex flex-col w-full mb-12 text-center"
+          >
+            <h3 className="mt-5 mb-5">Lasted Content</h3>
+          </motion.div>
+          <motion.div
+            variants={title}
+            className="card-deck flex-wrap"
+          >
+            {posts?.slice(0, 5).map(({ fields }, index) => {
               return (
                 <Post
-                  key={index}
+                  key={index.toString()}
                   title={fields.title}
                   author={fields.author}
                   date={fields.publishDate}
@@ -54,16 +66,20 @@ export default function Index({ posts, category }) {
                   slug={fields.slug}
                   coverImage={fields.heroImage.fields}
                 />
-            )})}
-          </div>
-          <style jsx>{`
-            .card-deck .card {
-              display: flex;
-              flex: 1 0 auto;
+              )
+            })}
+            {
+              posts.length > 6 ? <></> : <></>
             }
-          `}</style>
-        </div>
-      {/* </Layout> */}
+          </motion.div>
+        </motion.div>
+      </motion.section>
+      <style jsx>{`
+        .card-deck .card {
+          display: flex;
+          flex: 1 0 auto;
+        }
+      `}</style>
     </Layout>
   );
 }

@@ -1,13 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Head from "next/head";
-// import { ThemeProvider } from "@material-ui/core/styles";
-// import theme from "theme";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "../styles/globals.css"
+import { useRouter } from 'next/router';
+import { AnimatePresence } from 'framer-motion';
 
+// import 'aos/dist/aos.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import '../styles/globals.css';
+
+function handleExitComplete() {
+  if (typeof window !== 'undefined') {
+    window.scrollTo({ top: 0 })
+  }
+}
 export default function MyApp(props) {
   const { Component, pageProps } = props;
+  const router = useRouter()
+  const [isFirstMount, setIsFirstMount] = React.useState(true);
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -17,6 +28,20 @@ export default function MyApp(props) {
     }
   }, []);
 
+  React.useEffect(() => {
+    const handleRouteChange = () => {
+      isFirstMount && setIsFirstMount(false);
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method:
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, []);
+
   return (
     <React.Fragment>
       <Head>
@@ -24,29 +49,14 @@ export default function MyApp(props) {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        {/* <meta name="msapplication-TileColor" content="#b91d47" /> */}
-        {/* <meta name="theme-color" content="#fafafa" /> */}
       </Head>
-      {/* <ThemeProvider theme={theme}> */}
-        <Component {...pageProps} />
-      {/* </ThemeProvider> */}
+      <AnimatePresence exitBeforeEnter onExitComplete={handleExitComplete}>
+        <Component
+          isFirstMount={isFirstMount}
+          key={router.route}
+          {...pageProps}
+        />
+      </AnimatePresence>
     </React.Fragment>
   );
 }

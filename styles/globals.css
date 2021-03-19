@@ -15,16 +15,16 @@ a {
   box-sizing: border-box;
 }
 
-.card-deck .card {
+/* .card-deck .card {
   display: flex;
   flex: none;
   width: 100%;
-}
+} */
 .header-post {
-    margin-bottom: 50px;
-    position: relative;
-    min-height: 280px;
-    background: #151515;
+  margin-bottom: 50px;
+  position: relative;
+  min-height: 280px;
+  background: #151515;
 }
 .post-info {
   padding-bottom: 0;
@@ -33,42 +33,78 @@ a {
   position: absolute;
   left: 0;
   right: 0;
-  background: -webkit-linear-gradient(top,rgba(0,0,0,0) 0%,rgba(0,0,0,.75) 100%);
-  background: linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,.75) 100%);
+  background: -webkit-linear-gradient(
+    top,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
   bottom: 0;
   text-align: center;
   padding-top: 40px;
 }
 .post-info-content {
-    padding: 0 0 40px 0;
-    width: 870px;
-    display: inline-block;
-    text-align: center;
-    max-width: 90%;
+  padding: 0 0 40px 0;
+  width: 870px;
+  display: inline-block;
+  text-align: center;
+  max-width: 90%;
 }
 .post-info-content .cat-post {
-    font-size: 0;
-    margin-bottom: 5px;
-    display: inline-block;
+  font-size: 0;
+  margin-bottom: 5px;
+  display: inline-block;
 }
 .header-post .post-title {
-    font-size: 36px;
-    line-height: 54px;
-    font-family: Jost500;
-    color: #fff;
-    font-weight: 300;
-    margin-bottom: 0;
+  font-size: 36px;
+  line-height: 54px;
+  font-family: Jost500;
+  color: #fff;
+  font-weight: 300;
+  margin-bottom: 0;
 }
 .post-meta-content {
-    color: rgba(255,255,255,.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 15px;
-    line-height: 24px;
-    margin-bottom: 25px;
+  color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  line-height: 24px;
+  margin-bottom: 25px;
 }
 .header-post .post-meta-content {
-    margin-bottom: 0;
-    margin-top: 5px;
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+.navbar-custom {
+  height: 100px;
+}
+
+a,
+a:hover,
+a:visited,
+a:focus {
+  text-decoration: none;
+}
+
+.carousel-item {
+  height: 400px;
+}
+/* 
+.item img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 300px;
+} */
+
+.card-img-top {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
 }
