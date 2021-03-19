@@ -11,7 +11,7 @@ export default function Nav() {
                     }}
                     as={`/`}
                 >
-                    <a className="navbar-brand">Nextjs demo contentful</a>
+                    <a className="navbar-brand">Nextjs</a>
                 </Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
